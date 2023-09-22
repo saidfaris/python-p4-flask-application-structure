@@ -3,17 +3,13 @@
 from flask import Flask
 
 app = Flask(__name__)
-from werkzeug.wrappers import Request, Response
 
-@Request.application
-def application(request):
-    print(f'This web server is running at {request.remote_addr}')
-    return Response('A WSGI generated this response!')
+@app.route('/')
+def index():
+    return '<h> Welcome to my app!</h1>'
+@app.route('/<string:username>')
+def user(username):
+    return f'<h1>profile for {username}</h1>'
 
 if __name__ == '__main__':
-    from werkzeug.serving import run_simple
-    run_simple(
-        hostname='localhost',
-        port=5555,
-        application=application
-    )op
+    app.run (port = 5555)
